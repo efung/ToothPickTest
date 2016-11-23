@@ -26,6 +26,15 @@ dependencies {
 
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
+
+        // Without the following exclude, on Dalvik (e.g. API 19 or older), you will get
+        // runtime warnings that some ToothPick or Smoothie classes used a different
+        // javax.inject package during pre-verification. The warning is 
+        // "Class resolved by unexpected DEX". The runtime exception contains the
+        // messages "java.lang.NoClassDefFoundError: toothpick/smoothie/provider/AccountManagerProvider"
+        // caused by "java.lang.IllegalAccessError: Class ref in pre-verified class resolved to 
+        // unexpected implementation"
+        exclude group: 'javax.inject'
     })
     testCompile 'junit:junit:4.12'
 }
